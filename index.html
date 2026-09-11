@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101820">
+  <meta name="description" content="Секретное историческое расследование для Ксении Пятибратовой.">
+  <title>Дело 2026 — архив Пятки</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101820'/%3E%3Cpath d='M15 14h34v36H15z' fill='none' stroke='%23e4b363' stroke-width='4'/%3E%3Cpath d='M22 23h20M22 32h20M22 41h12' stroke='%23e4b363' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --ink: #101820;
+      --ink-soft: #27333b;
+      --paper: #f4f0e8;
+      --paper-deep: #e9e1d4;
+      --gold: #e4b363;
+      --red: #b24d46;
+      --red-dark: #7e312e;
+      --line: rgba(16, 24, 32, .17);
+      --shadow: 0 20px 60px rgba(7, 13, 18, .2);
+    }
+    * { box-sizing: border-box; }
+    html { min-height: 100%; background: var(--ink); }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(228,179,99,.15), transparent 28rem),
+        linear-gradient(135deg, #101820 0%, #1b2931 48%, #101820 100%);
+      font-family: Georgia, 'Times New Roman', serif;
+      letter-spacing: .01em;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; opacity: .22;
+      background: linear-gradient(115deg, transparent 0 49%, rgba(228,179,99,.18) 49.2% 49.5%, transparent 49.7%), repeating-linear-gradient(0deg, transparent 0 31px, rgba(244,240,232,.035) 32px);
+    }
+    button, input { font: inherit; }
+    .shell { width: min(100% - 32px, 940px); margin: 0 auto; padding: 26px 0 48px; }
+    .topline {
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+      color: rgba(244,240,232,.74); font: 700 11px/1.3 Arial, sans-serif;
+      letter-spacing: .18em; text-transform: uppercase;
+    }
+    .seal {
+      width: 48px; height: 48px; border: 1px solid rgba(228,179,99,.8); border-radius: 50%;
+      display: grid; place-items: center; color: var(--gold); font: 700 18px Georgia, serif;
+      transform: rotate(-10deg); flex: 0 0 auto;
+    }
+    .paper {
+      margin-top: 18px; background: var(--paper); box-shadow: var(--shadow); position: relative;
+      overflow: hidden; border: 1px solid rgba(255,255,255,.35); border-radius: 3px 3px 18px 3px;
+    }
+    .paper::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--red); opacity: .9; }
+    .paper::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .26;
+      background-image: radial-gradient(rgba(16,24,32,.18) .55px, transparent .65px);
+      background-size: 7px 7px; mix-blend-mode: multiply;
+    }
+    .paper-inner { position: relative; padding: clamp(25px, 6vw, 66px); }
+    .kicker { color: var(--red-dark); font: 700 12px/1.2 Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { max-width: 690px; margin: 18px 0 14px; font-size: clamp(39px, 8vw, 77px); line-height: .91; letter-spacing: -.055em; font-weight: 700; }
+    .lede { max-width: 600px; margin: 0; color: var(--ink-soft); font-size: clamp(17px, 2.8vw, 22px); line-height: 1.45; }
+    .file-meta { display: flex; flex-wrap: wrap; gap: 9px 22px; padding: 25px 0 0; margin-top: 28px; border-top: 1px solid var(--line); font: 700 12px/1.4 Arial, sans-serif; text-transform: uppercase; letter-spacing: .07em; color: #5d6264; }
+    .file-meta span b { color: var(--ink); }
+    .case-body { border-top: 1px solid var(--line); margin-top: 42px; padding-top: 28px; }
+    .progress-row { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+    .progress-label { font: 700 12px/1.3 Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--red-dark); }
+    .counter { color: #62676a; font: 14px/1.3 Arial, sans-serif; }
+    .progress { height: 5px; background: #d8d0c3; overflow: hidden; }
+    .progress > i { display: block; width: 20%; height: 100%; background: var(--red); transition: width .4s ease; }
+    .stage { display: none; animation: appear .35s ease both; }
+    .stage.active { display: block; }
+    @keyframes appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .stage-no { margin-top: 34px; color: #737778; font: 700 12px/1.2 Arial, sans-serif; letter-spacing: .13em; text-transform: uppercase; }
+    h2 { margin: 10px 0 12px; max-width: 680px; font-size: clamp(26px, 5vw, 43px); line-height: 1.04; letter-spacing: -.035em; }
+    .brief { max-width: 650px; margin: 0 0 22px; font-size: 18px; line-height: 1.5; }
+    .document {
+      max-width: 690px; margin: 20px 0; padding: 20px 22px; border-left: 3px solid var(--gold);
+      background: rgba(255,255,255,.38); color: var(--ink-soft); font-size: 17px; line-height: 1.55;
+    }
+    .document strong { color: var(--ink); }
+    .options { display: grid; gap: 10px; max-width: 690px; margin-top: 20px; }
+    .option {
+      width: 100%; padding: 15px 17px; border: 1px solid var(--line); background: rgba(255,255,255,.28);
+      color: var(--ink); text-align: left; cursor: pointer; transition: border-color .2s, background .2s, transform .2s;
+      display: flex; align-items: baseline; gap: 13px; font-size: 17px; line-height: 1.3;
+    }
+    .option:hover, .option:focus-visible { border-color: var(--red); background: rgba(255,255,255,.65); transform: translateX(3px); outline: none; }
+    .option.selected { border-color: var(--red); background: rgba(178,77,70,.12); box-shadow: inset 4px 0 0 var(--red); }
+    .option b { color: var(--red-dark); font: 700 13px Arial, sans-serif; }
+    .input-row { display: flex; max-width: 690px; gap: 10px; margin-top: 20px; }
+    .answer-input { min-width: 0; flex: 1; padding: 14px 15px; border: 1px solid var(--line); background: rgba(255,255,255,.56); color: var(--ink); font-size: 17px; }
+    .answer-input:focus { outline: 2px solid rgba(178,77,70,.35); outline-offset: 2px; }
+    .submit, .next-btn, .download {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 20px;
+      border: 0; background: var(--ink); color: var(--paper); cursor: pointer; font: 700 14px/1.1 Arial, sans-serif;
+      letter-spacing: .08em; text-transform: uppercase; transition: background .2s, transform .2s;
+    }
+    .submit:hover, .submit:focus-visible, .next-btn:hover, .next-btn:focus-visible, .download:hover, .download:focus-visible { background: var(--red-dark); transform: translateY(-2px); outline: none; }
+    .feedback { min-height: 26px; margin-top: 13px; color: var(--red-dark); font: 700 14px/1.4 Arial, sans-serif; }
+    .feedback.ok { color: #2b6950; }
+    .next-btn { display: none; margin-top: 2px; }
+    .next-btn.visible { display: inline-flex; }
+    .clue-tag { display: inline-block; margin-top: 17px; padding: 7px 10px; background: var(--gold); color: var(--ink); font: 700 11px/1 Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+    .multi-note { margin: 18px 0 3px; color: #62676a; font: 700 12px/1.4 Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+    .hidden-step { display: none; margin-top: 28px; padding-top: 25px; border-top: 1px dashed var(--line); }
+    .hidden-step.visible { display: block; animation: appear .35s ease both; }
+    .split-label { color: var(--red-dark); font: 700 11px/1.2 Arial, sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+    .witnesses { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 27px; }
+    .witness { padding: 8px 10px; border: 1px solid var(--line); color: #62676a; font: 12px/1.1 Arial, sans-serif; }
+    .final { display: none; }
+    .final.active { display: block; animation: appear .5s ease both; }
+    .final-mark { width: 78px; height: 78px; display: grid; place-items: center; border: 2px solid var(--red); border-radius: 50%; color: var(--red-dark); font-size: 36px; transform: rotate(-8deg); margin-bottom: 22px; }
+    .final h2 { max-width: 680px; }
+    .ticket-card { max-width: 690px; margin: 25px 0; padding: 22px; background: var(--ink); color: var(--paper); border-left: 6px solid var(--gold); }
+    .ticket-card .eyebrow { color: var(--gold); font: 700 11px/1 Arial, sans-serif; letter-spacing: .15em; text-transform: uppercase; }
+    .ticket-card h3 { margin: 13px 0 16px; font-size: clamp(25px, 5vw, 40px); line-height: 1; }
+    .ticket-info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; padding-top: 16px; border-top: 1px solid rgba(244,240,232,.25); }
+    .ticket-info small { display: block; color: rgba(244,240,232,.55); font: 10px/1.2 Arial, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+    .ticket-info span { display: block; margin-top: 5px; font-size: 16px; }
+    .download { background: var(--red-dark); margin-top: 5px; text-decoration: none; }
+    .download:hover, .download:focus-visible { background: #a03f3a; }
+    .congrats { max-width: 670px; font-size: 20px; line-height: 1.55; }
+    .signature { margin-top: 28px; color: var(--red-dark); font-size: 22px; font-style: italic; }
+    .fineprint { margin-top: 32px; color: #737778; font: 12px/1.5 Arial, sans-serif; }
+    @media (max-width: 560px) {
+      .shell { width: min(100% - 20px, 940px); padding-top: 15px; }
+      .topline { font-size: 9px; letter-spacing: .11em; }
+      .paper-inner { padding: 25px 21px 34px; }
+      .input-row { flex-direction: column; }
+      .submit { width: 100%; }
+      .ticket-info { grid-template-columns: 1fr; gap: 12px; }
+      .witnesses { gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topline"><span>Архив исторических расследований</span><span class="seal" aria-label="Печать дела">П</span></div>
+    <section class="paper" aria-live="polite">
+      <div class="paper-inner">
+        <div class="kicker">Дело 2026 · особой важности</div>
+        <h1>Исчезновение концертного билета</h1>
+        <p class="lede">В архиве обнаружена запись о ценном документе, предназначенном для Ксении Пятибратовой. Чтобы получить доступ к нему, агенту «Пятка» предстоит пройти пять проверок.</p>
+        <div class="file-meta"><span>Статус: <b>рассекречено</b></span><span>Объект: <b>Пятка</b></span><span>Свидетели: <b>4</b></span></div>
+
+        <div class="case-body" id="caseBody">
+          <div class="progress-row"><span class="progress-label">Ход расследования</span><span class="counter" id="counter">Улика 1 из 5</span></div>
+          <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+          <section class="stage active" data-stage="1">
+            <div class="stage-no">Улика 01 · установление личности</div>
+            <h2>Где состоялось знакомство именинницы с поздравителями?</h2>
+            <p class="brief">В архиве зафиксирована первая встреча Ксении Пятибратовой и её будущей сообщницы Ксюши. Отметьте все подходящие места.</p>
+            <div class="document"><strong>Фрагмент протокола:</strong><br>«Подозреваемые пересеклись в 2000-х годах. Позже выяснилось, что их история связана сразу с двумя корпусами одного большого дела».</div>
+            <div class="multi-note">Нужно выбрать два варианта</div>
+            <div class="options multi-options" id="meetingOptions">
+              <button class="option" data-value="lyceum"><b>□</b><span>Аничков лицей</span></button>
+              <button class="option" data-value="university"><b>□</b><span>Истфак СПбГУ</span></button>
+              <button class="option" data-value="murmansk"><b>□</b><span>Мурманский порт</span></button>
+              <button class="option" data-value="japan"><b>□</b><span>Япония</span></button>
+              <button class="option" data-value="icebreaker"><b>□</b><span>На борту ледокола</span></button>
+              <button class="option" data-value="tula"><b>□</b><span>Тульский кремль</span></button>
+            </div>
+            <div class="feedback" id="feedback1"></div><button class="submit" id="checkMeeting">Проверить протокол</button><br><button class="next-btn" data-next="1">Изучить следующую улику →</button>
+          </section>
+
+          <section class="stage" data-stage="2">
+            <div class="stage-no">Улика 02 · образовательная траектория</div>
+            <h2>Установите путь подозреваемой</h2>
+            <p class="brief">В архиве обнаружено несколько версий жизненного маршрута. Только одна выглядит правдоподобно и при этом достаточно кинематографично.</p>
+            <div class="options" data-answer="Аничков лицей → истфак СПбГУ → Аничков лицей">
+              <button class="option"><b>A</b><span>Цирк → Петропавловская крепость → музей артиллерии</span></button>
+              <button class="option"><b>B</b><span>Аничков лицей → истфак СПбГУ → Аничков лицей</span></button>
+              <button class="option"><b>C</b><span>Колоннада Исаакиевского собора → СПбГУ → цирк</span></button>
+              <button class="option"><b>D</b><span>Музей артиллерии → Аничков лицей → Нью-Йорк</span></button>
+              <button class="option"><b>E</b><span>Петропавловская крепость → истфак СПбГУ → Япония</span></button>
+              <button class="option"><b>F</b><span>СПбГУ → колоннада Исаакиевского собора → Аничков лицей</span></button>
+            </div>
+            <div class="feedback" id="feedback2"></div><button class="next-btn" data-next="2">Изучить следующую улику →</button>
+          </section>
+
+          <section class="stage" data-stage="3">
+            <div class="stage-no">Улика 03 · показания свидетелей</div>
+            <h2>Кем Пятка приходится вашей семье?</h2>
+            <p class="brief">Семейный протокол содержит шесть показаний. Только одно из них составлено без искажений, домыслов и чужих биографий.</p>
+            <div class="options" data-answer="Свидетельница на свадьбе и крёстная старшего сына">
+              <button class="option"><b>A</b><span>Подруга семьи и крёстная Михаила</span></button>
+              <button class="option"><b>B</b><span>Свидетельница на свадьбе и крёстная старшего сына</span></button>
+              <button class="option"><b>C</b><span>Свидетельница на свадьбе и крёстная Михаила</span></button>
+              <button class="option"><b>D</b><span>Крёстная Льва и семейный фотограф</span></button>
+              <button class="option"><b>E</b><span>Однокурсница и крёстная обоих сыновей</span></button>
+              <button class="option"><b>F</b><span>Свидетельница на выпускном и семейная экскурсоводка</span></button>
+            </div>
+            <div class="witnesses"><span class="witness">Ксюша</span><span class="witness">Ваня</span><span class="witness">Лев</span><span class="witness">Михаил</span></div>
+            <div class="feedback" id="feedback3"></div><button class="next-btn" data-next="3">Изучить следующую улику →</button>
+          </section>
+
+          <section class="stage" data-stage="4">
+            <div class="stage-no">Улика 04 · журнал экспедиций</div>
+            <h2>Расшифруйте номер экспедиции</h2>
+            <p class="brief">На обложке журнала обнаружена надпись: «Тур для дур №…». Какой номер нужно внести в официальный реестр?</p>
+            <div class="options" data-answer="17" id="tourNumberOptions">
+              <button class="option"><b>A</b><span>10</span></button>
+              <button class="option"><b>B</b><span>16</span></button>
+              <button class="option"><b>C</b><span>17</span></button>
+              <button class="option"><b>D</b><span>21</span></button>
+              <button class="option"><b>E</b><span>58</span></button>
+            </div>
+            <div class="hidden-step" id="cityStep">
+              <div class="split-label">Вторая часть записи</div>
+              <h2>Куда привела эта экспедиция?</h2>
+              <div class="options" data-answer="Мурманск" id="cityOptions">
+                <button class="option"><b>A</b><span>Киев</span></button>
+                <button class="option"><b>B</b><span>Рига</span></button>
+                <button class="option"><b>C</b><span>Сочи</span></button>
+                <button class="option"><b>D</b><span>Самара</span></button>
+                <button class="option"><b>E</b><span>Мурманск</span></button>
+                <button class="option"><b>F</b><span>Тула и Москва</span></button>
+                <button class="option"><b>G</b><span>Токио</span></button>
+              </div>
+            </div>
+            <div class="document"><strong>Дополнительная отметка:</strong> ледокол не найден. Персональная экскурсия вместо групповой — найдена и признана прекрасной.</div>
+            <div class="feedback" id="feedback4"></div><button class="next-btn" data-next="4">Изучить финальную улику →</button>
+          </section>
+
+          <section class="stage" data-stage="5">
+            <div class="stage-no">Улика 05 · гастрономическая экспертиза</div>
+            <h2>Опознайте подозреваемую по гастрономическому досье</h2>
+            <p class="brief">В архиве обнаружены странные, но убедительные сведения:</p>
+            <div class="document"><strong>Протокол наблюдения:</strong><br>хлебобулочные изделия вызывают особый интерес; болгарский перец категорически исключён; свёкла недавно частично реабилитирована; персики признаны слишком волосатыми; нектарины проходят экспертизу без замечаний; листики базилика из блюда удаляются; из борща обычно изымается только бульон.</div>
+            <div class="options" data-answer="Ксения Нектариновый Инсайт">
+              <button class="option"><b>A</b><span>Ксения Булочка Инсайт</span></button>
+              <button class="option"><b>B</b><span>Ксения Нектариновый Инсайт</span></button>
+              <button class="option"><b>C</b><span>Ксения Базиликовый Архивариус</span></button>
+              <button class="option"><b>D</b><span>Ксения Перец-Контрабандист</span></button>
+              <button class="option"><b>E</b><span>Ксения Борщевой Картограф</span></button>
+              <button class="option"><b>F</b><span>Ксения Персиковый Следователь</span></button>
+            </div>
+            <div class="feedback" id="feedback5"></div><button class="next-btn" data-next="5">Открыть хранилище →</button>
+          </section>
+
+          <section class="final" id="final">
+            <div class="final-mark">✓</div>
+            <div class="kicker">Расследование завершено</div>
+            <h2>Дело раскрыто. Объект найден: «Космонавт».</h2>
+            <p class="congrats">Агент Пятка, вам предписывается явиться на танцпол 1 ноября 2026 года в 20:00. Внутри хранилища находится документ, который нельзя было доверить обычной почте.</p>
+            <div class="ticket-card">
+              <div class="eyebrow">Секретный пропуск · особый фонд</div>
+              <h3>«Марсель»</h3>
+              <div class="ticket-info"><div><small>Место</small><span>Космонавт</span></div><div><small>Дата</small><span>1 ноября · 20:00</span></div><div><small>Сектор</small><span>Танцпол</span></div></div>
+              <a class="download" href="ticket.pdf" download="bilet-na-Marsel.pdf">Скачать билет ↓</a>
+            </div>
+            <p class="congrats">С днём рождения, Ксюша! Пусть в следующей главе вашей общей истории будет ещё больше путешествий, случайных маршрутов, Японии, хороших экскурсий и поводов танцевать.</p>
+            <p class="signature">С любовью, Ксюша, Ваня, Лев и Михаил</p>
+            <p class="fineprint">Документ выдан семейным архивом. Копированию не подлежит — кроме случаев, когда очень хочется сохранить этот квест.</p>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    (() => {
+      let current = 1;
+      const total = 5;
+      const stages = [...document.querySelectorAll('.stage')];
+      const counter = document.getElementById('counter');
+      const progressBar = document.getElementById('progressBar');
+      const final = document.getElementById('final');
+      const normalize = value => value.toLowerCase().replaceAll('ё', 'е').trim().replace(/\s+/g, ' ');
+
+      function updateProgress() {
+        counter.textContent = `Улика ${current} из ${total}`;
+        progressBar.style.width = `${current / total * 100}%`;
+      }
+
+      function markSolved(stageNumber, message) {
+        const feedback = document.getElementById(`feedback${stageNumber}`);
+        feedback.textContent = message;
+        feedback.classList.add('ok');
+        document.querySelector(`[data-next="${stageNumber}"]`).classList.add('visible');
+      }
+
+      function advanceToNext(stageNumber) {
+        const next = Number(stageNumber) + 1;
+        stages.forEach(stage => stage.classList.toggle('active', Number(stage.dataset.stage) === next));
+        if (next <= total) {
+          current = next;
+          updateProgress();
+          window.scrollTo({ top: document.querySelector('.case-body').offsetTop - 20, behavior: 'smooth' });
+        } else {
+          document.querySelector('.progress-row').style.display = 'none';
+          document.querySelector('.progress').style.display = 'none';
+          stages.forEach(stage => stage.classList.remove('active'));
+          final.classList.add('active');
+          counter.textContent = 'Доступ разрешён';
+          window.scrollTo({ top: document.querySelector('.case-body').offsetTop - 20, behavior: 'smooth' });
+        }
+      }
+
+      const meetingOptions = new Set();
+      document.querySelectorAll('#meetingOptions .option').forEach(option => {
+        option.addEventListener('click', () => {
+          const value = option.dataset.value;
+          if (meetingOptions.has(value)) {
+            meetingOptions.delete(value);
+            option.classList.remove('selected');
+            option.querySelector('b').textContent = '□';
+          } else {
+            meetingOptions.add(value);
+            option.classList.add('selected');
+            option.querySelector('b').textContent = '☑';
+          }
+        });
+      });
+
+      document.getElementById('checkMeeting').addEventListener('click', () => {
+        const feedback = document.getElementById('feedback1');
+        if (meetingOptions.size === 2 && meetingOptions.has('lyceum') && meetingOptions.has('university')) {
+          markSolved(1, 'Верно. Два места, одна история, одно дело.');
+        } else {
+          feedback.classList.remove('ok');
+          feedback.textContent = 'Протокол составлен неточно. Нужно выбрать ровно два места.';
+        }
+      });
+
+      document.querySelectorAll('.options:not(.multi-options)').forEach(group => {
+        group.querySelectorAll('.option').forEach(option => {
+          option.addEventListener('click', () => {
+            const selectedText = option.querySelector('span')?.textContent || option.textContent;
+            const correct = normalize(selectedText) === normalize(group.dataset.answer);
+            const stageNumber = option.closest('.stage').dataset.stage;
+            const feedback = document.getElementById(`feedback${stageNumber}`);
+            if (correct) {
+              if (stageNumber === '4' && group.id === 'tourNumberOptions') {
+                document.getElementById('cityStep').classList.add('visible');
+                feedback.textContent = 'Номер подтверждён. Теперь определите конечную точку маршрута.';
+                feedback.classList.add('ok');
+              } else if (stageNumber === '4' && group.id === 'cityOptions') {
+                feedback.textContent = 'Маршрут подтверждён. Дело закрыто.';
+                feedback.classList.add('ok');
+                setTimeout(() => advanceToNext(4), 450);
+              } else {
+                markSolved(stageNumber, stageNumber === '5' ? 'Совпадение установлено. Псевдоним подтверждён.' : 'Верно. Улика принята в дело.');
+              }
+            } else {
+              feedback.classList.remove('ok');
+              feedback.textContent = 'Версия не подтверждена. Проверьте материалы дела ещё раз.';
+            }
+          });
+        });
+      });
+
+      document.querySelectorAll('[data-next]').forEach(button => {
+        button.addEventListener('click', () => {
+          advanceToNext(button.dataset.next);
+        });
+      });
+
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>
