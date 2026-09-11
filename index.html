@@ -58,6 +58,13 @@
       background-size: 7px 7px; mix-blend-mode: multiply;
     }
     .paper-inner { position: relative; padding: clamp(25px, 6vw, 66px); }
+    .cover { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(230px, .85fr); gap: clamp(24px, 5vw, 54px); align-items: end; }
+    .cover-copy { min-width: 0; }
+    .cover-photo { position: relative; width: min(100%, 310px); justify-self: end; transform: rotate(2.2deg); }
+    .cover-photo::before { content: ''; position: absolute; inset: -8px 12px 12px -10px; border: 1px solid rgba(16,24,32,.3); transform: rotate(-4deg); pointer-events: none; }
+    .cover-photo img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border: 10px solid var(--paper); box-shadow: 0 15px 28px rgba(16,24,32,.24); filter: saturate(.92) contrast(1.04); }
+    .cover-stamp { position: absolute; top: 17px; right: -17px; z-index: 1; padding: 10px 12px 8px; background: var(--red); color: var(--paper); box-shadow: 3px 4px 0 rgba(16,24,32,.16); font: 700 12px/1.05 Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; transform: rotate(8deg); }
+    .cover-caption { margin: 13px 4px 0; color: #62676a; font: 11px/1.3 Arial, sans-serif; letter-spacing: .1em; text-align: center; text-transform: uppercase; }
     .kicker { color: var(--red-dark); font: 700 12px/1.2 Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
     h1 { max-width: 690px; margin: 18px 0 14px; font-size: clamp(39px, 8vw, 77px); line-height: .91; letter-spacing: -.055em; font-weight: 700; }
     .lede { max-width: 600px; margin: 0; color: var(--ink-soft); font-size: clamp(17px, 2.8vw, 22px); line-height: 1.45; }
@@ -128,6 +135,8 @@
       .shell { width: min(100% - 20px, 940px); padding-top: 15px; }
       .topline { font-size: 9px; letter-spacing: .11em; }
       .paper-inner { padding: 25px 21px 34px; }
+      .cover { grid-template-columns: 1fr; gap: 25px; }
+      .cover-photo { width: min(100%, 290px); justify-self: center; }
       .input-row { flex-direction: column; }
       .submit { width: 100%; }
       .ticket-info { grid-template-columns: 1fr; gap: 12px; }
@@ -140,9 +149,18 @@
     <div class="topline"><span>Архив исторических расследований</span><span class="seal" aria-label="Печать дела">П</span></div>
     <section class="paper" aria-live="polite">
       <div class="paper-inner">
-        <div class="kicker">Дело 2026 · особой важности</div>
-        <h1>Исчезновение концертного билета</h1>
-        <p class="lede">В архиве обнаружена запись о ценном документе, предназначенном для Ксении Пятибратовой. Чтобы получить доступ к нему, агенту «Пятка» предстоит пройти пять проверок.</p>
+        <div class="cover">
+          <div class="cover-copy">
+            <div class="kicker">Дело 2026 · особой важности</div>
+            <h1>Исчезновение концертного билета</h1>
+            <p class="lede">В архиве обнаружена запись о ценном документе, предназначенном для Ксении Пятибратовой. Чтобы получить доступ к нему, агенту «Пятка» предстоит пройти пять проверок.</p>
+          </div>
+          <figure class="cover-photo">
+            <span class="cover-stamp">Дело вот этой<br>цыпы</span>
+            <img src="ksenia.jpg" alt="Ксения на фоне моря">
+            <figcaption class="cover-caption">Объект наблюдения · Ксения Пятибратова</figcaption>
+          </figure>
+        </div>
         <div class="file-meta"><span>Статус: <b>рассекречено</b></span><span>Объект: <b>Пятка</b></span><span>Свидетели: <b>4</b></span></div>
 
         <div class="case-body" id="caseBody">
@@ -363,3 +381,4 @@
   </script>
 </body>
 </html>
+
